@@ -11,6 +11,11 @@ app.use("*", serveStatic({ root: './public'}))
 app.get("/", (c) => {
   return c.html(fs.readFileSync("./public/index.html"))
 })
+app.get('/students', async (c) => {
+  const response = await fetch("http://localhost:3001/students")
+  const data = await response.json()
+  return c.json(data)
+})
 
 serve({
   fetch: app.fetch,
